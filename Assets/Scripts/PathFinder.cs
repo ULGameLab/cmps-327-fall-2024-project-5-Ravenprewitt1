@@ -9,6 +9,7 @@ public class Node
     public Node cameFrom = null; //parent node
     public double priority = 0; // F value
     public double costSoFar = 0; // G Value
+    public double estimatedCost = 0;
     public Tile tile;
 
     public Node(Tile _tile, double _priority, Node _cameFrom, double _costSoFar)
@@ -58,7 +59,31 @@ public class PathFinder
             // You just need to fill code inside this foreach only
             foreach (Tile nextTile in current.tile.Adjacents)
             {
+                //create node based on nextTile
+                Node nextNode = new Node(nextTile, 0, current, 0);
+                // check if nextTile is in DoneList
+                if (DoneList.Contains(nextNode))
+                {
+                    continue;
+                }
+                //Create and calculate f,g,h
+                //g=costSoFar
+                nextNode.costSoFar = current.costSoFar+1;
+                //h=estimatedCost
+                nextNode.estimatedCost = HeuristicsDistance(nextTile, goalTile);
+                //f=priority
+                nextNode.priority = nextNode.costSoFar + nextNode.estimatedCost;
+                //check if nextTile is in TODOList
+                if (TODOList.Contains(nextNode))
+                {
+                    continue;
+                }
+
+                //check if this is a better path
                 
+
+                //Add nextTile to TODOList
+                TODOList.Add(nextNode);
             }
         }
         return new Queue<Tile>(); // Returns an empty Path if no path is found
