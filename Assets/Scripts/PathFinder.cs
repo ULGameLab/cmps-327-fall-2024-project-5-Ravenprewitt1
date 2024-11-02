@@ -78,10 +78,6 @@ public class PathFinder
                 {
                     continue;
                 }
-
-                //check if this is a better path
-                
-
                 //Add nextTile to TODOList
                 TODOList.Add(nextNode);
             }
