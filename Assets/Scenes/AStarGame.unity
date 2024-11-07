@@ -488,8 +488,8 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 1
-  visionDistance: 5
-  maxCounter: 5
+  visionDistance: 10
+  maxCounter: 4
   behavior: 2
 --- !u!1 &614508718
 GameObject:
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 1
-  visionDistance: 6
+  visionDistance: 10
   maxCounter: 4
   behavior: 1
 --- !u!1 &1569744440

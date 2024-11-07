@@ -113,7 +113,10 @@ public class PathFinder
             // Just increase the F cost of the enemy tile and the tiles around it by a certain ammount (say 30)
             foreach (Tile nextTile in current.tile.Adjacents)
             {
+                
+               
 
+                
             }
         }
         return new Queue<Tile>(); // Returns an empty Path
@@ -195,4 +198,6 @@ public class PathFinder
             list[r] = tmp;
         }
     }
+
+   
 }
