@@ -156,14 +156,40 @@ public class Enemy : MonoBehaviour
                 if (Vector3.Distance(transform.position, targetTile.gameObject.transform.position) <= 0.05f)
                 {
                     currentTile = targetTile;
-                    state = EnemyState.DEFAULT;
-                }
+                    playerCloseCounter--;
 
+                    if(playerCloseCounter <= 0)
+                    {
+                        if (Vector3.Distance(playerGameObject.gameObject.transform.position, transform.position) < visionDistance)
+                        {
+                            
+                            path.Clear();
+                            //if an player is close reset counter
+                            playerCloseCounter = maxCounter;
+                            break;
+
+                        }
+                    }
+                    //if counter is over 0, got to chase
+                    if (playerCloseCounter > 0) state = EnemyState.CHASE;
+                    else state = EnemyState.DEFAULT;
+
+                }
                 break;
 
             //IMPLEMENT
             case EnemyState.CHASE:
+                material.color = Color.red;
+                if (path.Count <= 0)
+                {
+                    targetTile = playerGameObject.GetComponent<Player>().currentTile;
+                    path = pathFinder.FindPathAStar(currentTile,targetTile);
+                    playerCloseCounter = 0;
+                }
+                if (path.Count > 0) targetTile = path.Dequeue();
 
+                
+                state = EnemyState.MOVING;
                 break;
 
 
@@ -208,6 +234,9 @@ public class Enemy : MonoBehaviour
 
             //IMPLEMENT
             case EnemyState.CHASE:
+
+
+
 
                 break;
 

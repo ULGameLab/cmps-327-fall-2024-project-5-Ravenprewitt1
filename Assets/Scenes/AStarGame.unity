@@ -1241,7 +1241,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 1
-  visionDistance: 4
+  visionDistance: 6
   maxCounter: 4
   behavior: 1
 --- !u!1 &1569744440
