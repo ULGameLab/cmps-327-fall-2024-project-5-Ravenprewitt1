@@ -225,6 +225,14 @@ public class Enemy : MonoBehaviour
                 velocity = targetTile.gameObject.transform.position - transform.position;
                 transform.position = transform.position + (velocity.normalized * speed) * Time.deltaTime;
 
+
+                //if too close, clear path
+                if(Vector3.Distance(playerGameObject.gameObject.transform.position, transform.position) < 3)
+                {
+                    path.Clear();
+                }
+
+
                 //if target reached
                 if (Vector3.Distance(transform.position, targetTile.gameObject.transform.position) <= 0.05f)
                 {
@@ -252,13 +260,61 @@ public class Enemy : MonoBehaviour
 
             //IMPLEMENT
             case EnemyState.CHASE:
-                
-                //Chase from 3 tiles away
-                
 
+                material.color = Color.magenta;
+
+                // Call the function to find the next tile 3 tiles behind the player
+                //targetTile = FindChaseTargetTile(playerGameObject);
                 
+                    Vector3 playerPosition = playerGameObject.transform.position;
+                    Vector3 playerVelocity = playerGameObject.GetComponent<Player>().velocity;
+
+                    // Predict where the player will be after 'lookaheadTime'
+                    float lookaheadTime = 1.0f;  // Time in seconds (adjust based on your game mechanics)
+                    Vector3 targetPredictedPosition = playerPosition + playerVelocity * lookaheadTime;
+
+                    // Get direction of the player's movement (normalized)
+                    Vector3 directionToPlayer = playerVelocity.normalized;
+
+                    // Calculate the position 3 tiles behind the predicted position
+                    // Assuming 'mapTileSize' is the size of a tile in world space (adjust accordingly)
+                    float tileDistance = 3;  // 3 tiles behind
+                    Vector3 targetPositionBehindPlayer = targetPredictedPosition - directionToPlayer * tileDistance;
+
+                    // Now we need to find the tile closest to 'targetPositionBehindPlayer'
+                    targetTile = null;
+                    float minDistance = Mathf.Infinity;
+
+                    // Search for the closest tile to the target position behind the player
+                    foreach (Tile adjacent in currentTile.Adjacents)
+                    {
+                        float distanceToTarget = Vector3.Distance(adjacent.transform.position, targetPositionBehindPlayer);
+                        if (distanceToTarget < minDistance)
+                        {
+                            minDistance = distanceToTarget;
+                            targetTile = adjacent;
+                        }
+                    }
+               
+               
+                // If a valid target tile is found, calculate the path to it
+                if (targetTile != null && path.Count <= 0)
+                {
+                    path = pathFinder.FindPathAStar(currentTile, targetTile);
+                    playerCloseCounter = 0;
+                }
+
+                // If there's a valid path, move to the next tile in the path
+                if (path.Count > 0)
+                {
+                    targetTile = path.Dequeue();  // Move to the next tile in the path
+                    state = EnemyState.MOVING;  // Transition to MOVING state
+                }
 
                 break;
+
+
+               
 
 
             default:
@@ -267,4 +323,12 @@ public class Enemy : MonoBehaviour
         }
 
     }
+
+
+    
+        
+
+
+
 }
+
