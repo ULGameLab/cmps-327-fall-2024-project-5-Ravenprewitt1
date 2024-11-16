@@ -261,12 +261,12 @@ public class Enemy : MonoBehaviour
             //IMPLEMENT
             case EnemyState.CHASE:
 
-                material.color = Color.magenta;
 
+                material.color = Color.magenta;
                 // Call the function to find the next tile 3 tiles behind the player
-                
-                
-                    Vector3 playerPosition = playerGameObject.transform.position;
+
+
+                Vector3 playerPosition = playerGameObject.transform.position;
                     Vector3 playerVelocity = playerGameObject.GetComponent<Player>().velocity;
 
                     // Predict where the player will be after 'lookaheadTime'

@@ -489,7 +489,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   speed: 1
-  visionDistance: 40
+  visionDistance: 10
   maxCounter: 4
   behavior: 2
 --- !u!1 &614508718
@@ -1006,7 +1006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &996666132
 Transform:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1420615187
 Transform:
   m_ObjectHideFlags: 0
